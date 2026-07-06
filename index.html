@@ -15,9 +15,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-  /* ============================================
-     1. ROOT VARIABLES — edit colors/fonts here
-     ============================================ */
   :root {
     --bg: #202940;
     --bg-elevated: #121212;
@@ -26,7 +23,7 @@
     --text-primary: #f2f2f2;
     --text-secondary: #a3a3a3;
     --text-muted: #6b6b6b;
-    --accent: #64ffda;      /* signature accent color, change freely */
+    --accent: #64ffda;
     --accent-soft: rgba(100, 255, 218, 0.1);
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --max-width: 700px;
@@ -34,10 +31,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -58,495 +52,259 @@
     padding: 0 24px;
   }
 
-  section {
-    padding: var(--section-pad) 0;
-  }
+  section { padding: var(--section-pad) 0; }
 
-  /* ============================================
-     2. NAVBAR
-     ============================================ */
   .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: rgba(44, 62, 80, 0.85);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
   }
-
-  .navbar .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-  }
-
-  .logo {
-    font-weight: 700;
-    font-size: 1.05rem;
-    letter-spacing: -0.02em;
-  }
-
+  .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
   .logo span { color: var(--accent); }
-
-  .nav-links {
-    display: none;
-    gap: 28px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-  }
-
-  .nav-links a {
-    transition: color 0.2s ease;
-  }
+  .nav-links { display: none; gap: 28px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+  .nav-links a { transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--accent); }
+  @media (min-width: 640px) { .nav-links { display: flex; } }
 
-  @media (min-width: 640px) {
-    .nav-links { display: flex; }
-  }
+  .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: 64px; }
+  .hero-eyebrow { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s; }
+  .hero-title { font-size: clamp(2.2rem, 8vw, 3.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-primary); opacity: 0; animation: fadeUp 0.6s ease forwards 0.25s; }
+  .hero-title .highlight { color: var(--text-secondary); }
+  .hero-subtitle { margin-top: 20px; max-width: 480px; font-size: clamp(1rem, 3vw, 1.15rem); color: var(--text-secondary); opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s; }
+  .hero-cta { margin-top: 36px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.55s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ============================================
-     3. HERO SECTION
-     ============================================ */
-  .hero {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 64px;
-  }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--accent); color: var(--accent); background: transparent; transition: all 0.25s ease; cursor: pointer; }
+  .btn:hover { background: var(--accent-soft); transform: translateY(-2px); }
+  .btn-solid { background: var(--accent); color: #0a0a0a; }
+  .btn-solid:hover { background: #7fffdf; }
 
-  .hero-eyebrow {
-    color: var(--accent);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 16px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.1s;
-  }
+  .section-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
+  .section-number { color: var(--accent); font-family: monospace; font-size: 1rem; }
+  .section-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+  .section-line { height: 1px; background: var(--border); flex: 1; }
 
-  .hero-title {
-    font-size: clamp(2.2rem, 8vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: var(--text-primary);
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.25s;
-  }
-
-  .hero-title .highlight {
-    color: var(--text-secondary);
-  }
-
-  .hero-subtitle {
-    margin-top: 20px;
-    max-width: 480px;
-    font-size: clamp(1rem, 3vw, 1.15rem);
-    color: var(--text-secondary);
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.4s;
-  }
-
-  .hero-cta {
-    margin-top: 36px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.55s;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    background: transparent;
-    transition: all 0.25s ease;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background: var(--accent-soft);
-    transform: translateY(-2px);
-  }
-
-  .btn-solid {
-    background: var(--accent);
-    color: #0a0a0a;
-  }
-  .btn-solid:hover {
-    background: #7fffdf;
-  }
-
-  /* ============================================
-     4. SECTION HEADINGS (reused across sections)
-     ============================================ */
-  .section-heading {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 36px;
-  }
-
-  .section-number {
-    color: var(--accent);
-    font-family: monospace;
-    font-size: 1rem;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-  }
-
-  .section-line {
-    height: 1px;
-    background: var(--border);
-    flex: 1;
-  }
-
-  /* ============================================
-     5. ABOUT SECTION
-     ============================================ */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 36px;
-    align-items: start;
-  }
-
-  @media (min-width: 700px) {
-    .about-grid {
-      grid-template-columns: 2fr 1fr;
-      gap: 48px;
-    }
-  }
-
-  .about-text {
-    color: var(--text-secondary);
-    font-size: 1rem;
-  }
-
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: start; }
+  @media (min-width: 700px) { .about-grid { grid-template-columns: 2fr 1fr; gap: 48px; } }
+  .about-text { color: var(--text-secondary); font-size: 1rem; }
   .about-text p + p { margin-top: 16px; }
+  .about-text strong { color: var(--text-primary); font-weight: 600; }
 
-  .about-text strong {
-    color: var(--text-primary);
-    font-weight: 600;
-  }
+  .about-photo-wrap { position: relative; width: 100%; max-width: 240px; margin: 0 auto; }
+  .about-photo-border { position: absolute; top: 16px; left: 16px; width: 100%; height: 100%; border: 2px solid var(--accent); border-radius: 8px; transition: top 0.3s ease, left 0.3s ease; z-index: 0; }
+  .about-photo-wrap:hover .about-photo-border { top: 8px; left: 8px; }
+  .about-photo-frame { position: relative; aspect-ratio: 1 / 1; border-radius: 8px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); z-index: 1; }
+  .about-photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%) contrast(1.05); transition: filter 0.3s ease; display: block; }
+  .about-photo-frame:hover img { filter: grayscale(0%) contrast(1); }
+  .about-photo-frame::after { content: ""; position: absolute; inset: 0; background: var(--accent); mix-blend-mode: multiply; opacity: 0.25; transition: opacity 0.3s ease; }
+  .about-photo-frame:hover::after { opacity: 0; }
+  .about-photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 2.4rem; }
 
-  /* --- ABOUT PHOTO — offset accent border, tint-to-clear on hover --- */
-  .about-photo-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  .about-photo-border {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    width: 100%;
-    height: 100%;
-    border: 2px solid var(--accent);
-    border-radius: 8px;
-    transition: top 0.3s ease, left 0.3s ease;
-    z-index: 0;
-  }
-
-  .about-photo-wrap:hover .about-photo-border {
-    top: 8px;
-    left: 8px;
-  }
-
-  .about-photo-frame {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    z-index: 1;
-  }
-
-  .about-photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(30%) contrast(1.05);
-    transition: filter 0.3s ease;
-    display: block;
-  }
-
-  .about-photo-frame:hover img {
-    filter: grayscale(0%) contrast(1);
-  }
-
-  .about-photo-frame::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    mix-blend-mode: multiply;
-    opacity: 0.25;
-    transition: opacity 0.3s ease;
-  }
-
-  .about-photo-frame:hover::after {
-    opacity: 0;
-  }
-
-  .about-photo-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 2.4rem;
-  }
-
-  /* ============================================
-     6. SKILLS SECTION — minimal tag row
-     ============================================ */
-  .skills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .skill-tag {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: all 0.25s ease;
-  }
-
-  .skill-tag:hover {
-    border-color: var(--accent);
-    color: var(--text-primary);
-    transform: translateY(-2px);
-  }
-
+  .skills-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .skill-tag { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: all 0.25s ease; }
+  .skill-tag:hover { border-color: var(--accent); color: var(--text-primary); transform: translateY(-2px); }
   .skill-tag i { color: var(--accent); font-size: 0.9rem; }
 
   /* ============================================
-     7. PROJECTS SECTION — modular card grid
+     7. FEATURED PROJECTS SECTION — overlapping grid
      ============================================ */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+  section#projects .container { max-width: 1000px; }
 
-  @media (min-width: 640px) {
-    .projects-grid { grid-template-columns: 1fr 1fr; }
-  }
-
-  /* --- PROJECT CARD (copy this whole block to add a new project) --- */
-  .project-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: all 0.3s ease;
+  .featured-project-list {
     display: flex;
     flex-direction: column;
+    gap: 100px;
   }
 
-  .project-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  .featured-project {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
   }
 
-  .project-thumb {
+  .featured-project-image {
+    grid-column: 1 / 8;
+    grid-row: 1 / -1;
+    position: relative;
+  }
+
+  .featured-project-image a {
+    position: relative;
+    display: block;
+    width: 100%;
     aspect-ratio: 16 / 10;
-    background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+    border-radius: 6px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a2038, #0d1120);
+  }
+
+  .featured-project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(1);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+
+  .featured-project-image .no-image-icon {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
-    font-size: 0.85rem;
-    position: relative;
-    overflow: hidden;
+    font-size: 2rem;
   }
 
-  .project-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-
-  .project-card:hover .project-thumb img {
-    transform: scale(1.06);
-  }
-
-  .project-thumb::after {
+  .featured-project-image a::after {
     content: "";
     position: absolute;
     inset: 0;
     background: var(--accent);
     mix-blend-mode: multiply;
-    opacity: 0.25;
-    transition: opacity 0.3s ease;
+    opacity: 0.45;
+    transition: opacity 0.4s ease;
   }
 
-  .project-card:hover .project-thumb::after {
+  .featured-project-image a:hover::after {
     opacity: 0;
   }
 
-  .project-body {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  .featured-project-image a:hover img {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.03);
   }
 
-  .project-tag {
-    display: inline-block;
-    align-self: flex-start;
-    background: var(--accent-soft);
+  .featured-project-content {
+    grid-column: 6 / -1;
+    grid-row: 1 / -1;
+    z-index: 2;
+    text-align: right;
+  }
+
+  .featured-project-label {
     color: var(--accent);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 100px;
-    margin-bottom: 12px;
-  }
-
-  .project-name {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .project-desc {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    flex: 1;
-  }
-
-  .project-link {
-    margin-top: 16px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-primary);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    margin-bottom: 10px;
   }
 
-  .project-link i {
+  .featured-project-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  .featured-project-title a:hover { color: var(--accent); }
+
+  .featured-project-desc {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 26px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+
+  .featured-project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-top: 20px;
+    justify-content: flex-end;
     font-size: 0.75rem;
-    transition: transform 0.2s ease;
+    color: var(--text-secondary);
+    font-family: monospace;
   }
 
-  .project-card:hover .project-link i {
-    transform: translateX(4px);
+  .featured-project-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    justify-content: flex-end;
+    font-size: 1.1rem;
+    color: var(--text-primary);
   }
-  /* --- END PROJECT CARD --- */
+
+  .featured-project-links a { transition: color 0.2s ease, transform 0.2s ease; }
+  .featured-project-links a:hover { color: var(--accent); transform: translateY(-2px); }
+
+  /* Even projects: image on the right, content on the left */
+  .featured-project:nth-child(even) .featured-project-image {
+    grid-column: 6 / -1;
+  }
+  .featured-project:nth-child(even) .featured-project-content {
+    grid-column: 1 / 8;
+    text-align: left;
+  }
+  .featured-project:nth-child(even) .featured-project-tech,
+  .featured-project:nth-child(even) .featured-project-links {
+    justify-content: flex-start;
+  }
+
+  /* Mobile / tablet: stack image and overlapping content card */
+  @media (max-width: 900px) {
+    section#projects .container { max-width: var(--max-width); }
+
+    .featured-project,
+    .featured-project:nth-child(even) {
+      display: block;
+    }
+
+    .featured-project-image,
+    .featured-project:nth-child(even) .featured-project-image {
+      grid-column: unset;
+      width: 100%;
+    }
+
+    .featured-project-image a::after { opacity: 0.55; }
+
+    .featured-project-content,
+    .featured-project:nth-child(even) .featured-project-content {
+      grid-column: unset;
+      text-align: left !important;
+      position: relative;
+      margin-top: -50px;
+      padding: 0 4px;
+    }
+
+    .featured-project-tech,
+    .featured-project-links,
+    .featured-project:nth-child(even) .featured-project-tech,
+    .featured-project:nth-child(even) .featured-project-links {
+      justify-content: flex-start !important;
+    }
+
+    .featured-project-desc { padding: 20px; }
+  }
 
   /* ============================================
      8. CONTACT SECTION
      ============================================ */
-  .contact {
-    text-align: center;
-  }
-
-  .contact-title {
-    font-size: clamp(1.8rem, 6vw, 2.4rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-  }
-
+  .contact { text-align: center; }
+  .contact-title { font-size: clamp(1.8rem, 6vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
   .contact-title span { color: var(--accent); }
-
-  .contact-subtitle {
-    color: var(--text-secondary);
-    max-width: 420px;
-    margin: 0 auto 36px;
-    font-size: 0.95rem;
-  }
-
-  .contact-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 480px) {
-    .contact-buttons { flex-direction: row; max-width: none; justify-content: center; }
-  }
-
+  .contact-subtitle { color: var(--text-secondary); max-width: 420px; margin: 0 auto 36px; font-size: 0.95rem; }
+  .contact-buttons { display: flex; flex-direction: column; gap: 14px; max-width: 320px; margin: 0 auto; }
+  @media (min-width: 480px) { .contact-buttons { flex-direction: row; max-width: none; justify-content: center; } }
   .contact-buttons .btn { justify-content: center; width: 100%; }
+  @media (min-width: 480px) { .contact-buttons .btn { width: auto; } }
 
-  @media (min-width: 480px) {
-    .contact-buttons .btn { width: auto; }
-  }
+  footer { text-align: center; padding: 30px 0 40px; color: var(--text-muted); font-size: 0.8rem; }
+  footer a { color: var(--text-secondary); font-weight: 600; }
 
-  /* ============================================
-     9. FOOTER
-     ============================================ */
-  footer {
-    text-align: center;
-    padding: 30px 0 40px;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-  }
-
-  footer a {
-    color: var(--text-secondary);
-    font-weight: 600;
-  }
-
-  /* ============================================
-     10. SCROLL REVEAL ANIMATION
-     ============================================ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<!-- ============================================
-     NAVBAR
-     ============================================ -->
 <nav class="navbar">
   <div class="container">
     <a href="#home" class="logo">Abhi<span>shek</span></a>
@@ -559,9 +317,6 @@
   </div>
 </nav>
 
-<!-- ============================================
-     HERO
-     ============================================ -->
 <header class="hero" id="home">
   <div class="container">
     <p class="hero-eyebrow" id="hero-eyebrow"></p>
@@ -575,9 +330,6 @@
   </div>
 </header>
 
-<!-- ============================================
-     ABOUT
-     ============================================ -->
 <section id="about">
   <div class="container">
     <div class="section-heading reveal">
@@ -592,9 +344,6 @@
   </div>
 </section>
 
-<!-- ============================================
-     SKILLS
-     ============================================ -->
 <section id="skills">
   <div class="container">
     <div class="section-heading reveal">
@@ -606,9 +355,6 @@
   </div>
 </section>
 
-<!-- ============================================
-     PROJECTS
-     ============================================ -->
 <section id="projects">
   <div class="container">
     <div class="section-heading reveal">
@@ -616,13 +362,10 @@
       <span class="section-title">Websites I've Built</span>
       <span class="section-line"></span>
     </div>
-    <div class="projects-grid reveal" id="projects-grid"></div>
+    <div class="featured-project-list" id="projects-grid"></div>
   </div>
 </section>
 
-<!-- ============================================
-     CONTACT
-     ============================================ -->
 <section id="contact" class="contact">
   <div class="container">
     <p class="section-number reveal" style="display:block; margin-bottom: 10px;">04. What's Next?</p>
@@ -637,37 +380,24 @@
 </footer>
 
 <script>
-/* ==================================================================
-   SITE DATA — EDIT EVERYTHING HERE. Layout code below never needs
-   to change for normal content updates.
-
-   TO ADD A NEW PROJECT:
-   Just copy one object inside the `projects` array below and edit
-   its fields. The card will appear automatically — no HTML editing
-   required.
-   ================================================================== */
 const siteData = {
 
-  brand: "A", // shown in navbar, keep short
+  brand: "A",
 
   hero: {
     eyebrow: "Hi, my name is",
-    // use <span class="highlight"> to grey out part of the title
     titleHTML: "ABHISHEK.<br><span class=\"highlight\">I build websites that grow local businesses.</span>",
     subtitle: "Independent Web Creator & Creative Coder crafting high-converting, cinematic websites for gyms, cafes, salons, and clinics."
   },
 
   about: {
-    // Each string becomes its own paragraph
     paragraphs: [
       "I'm a web creator who blends <strong>clean code</strong> with a sharp eye for photography, layout, and visual storytelling. I don't just build pages — I design digital experiences that make a local business feel premium the moment someone lands on it.",
       "Whether it's a gym, a café, or a salon, my focus stays the same: sleek, interactive, and professional websites that turn visitors into customers — without the technical jargon getting in the way."
     ],
-    // Path or URL to your photo. Leave "" to show a placeholder icon instead.
     photo: ""
   },
 
-  // Minimal skill tags — no proficiency bars, just clean icons
   skills: [
     { icon: "fa-brands fa-html5", label: "HTML" },
     { icon: "fa-brands fa-css3-alt", label: "CSS" },
@@ -679,34 +409,42 @@ const siteData = {
   /* ----------------------------------------------------------------
      PROJECTS — add as many objects as you like.
      Fields:
-       tag        -> small label at top of card (e.g. "Gym Landing Page")
+       tag        -> small "Featured Project" style label (optional override)
        name       -> project / business name
        desc       -> one or two line pitch of what was delivered
        image      -> path or URL to a screenshot (leave "" for a
                      placeholder icon instead of an image)
+       tech       -> array of tech/stack labels shown under the description
        link       -> live URL of the project
+       github     -> optional GitHub/repo URL. Leave "" to hide the icon.
      ---------------------------------------------------------------- */
   projects: [
     {
-      tag: "Gym Landing Page",
+      tag: "Featured Project",
       name: "Annfit Studio",
       desc: "A premium, ladies-only fitness studio site with a bold dark aesthetic — built to convert local leads into memberships.",
       image: "",
-      link: "#"
+      tech: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      github: ""
     },
     {
-      tag: "Cafe Redesign",
+      tag: "Featured Project",
       name: "The Daily Grind",
       desc: "A warm, editorial-style single-pager for a neighborhood café, designed to make the menu and ambience feel irresistible.",
       image: "",
-      link: "#"
+      tech: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      github: ""
     },
     {
-      tag: "Salon Website",
+      tag: "Featured Project",
       name: "Studio Lumière",
       desc: "An elegant, photography-forward site for a boutique salon — polished enough to match a high-end brand identity.",
       image: "",
-      link: "#"
+      tech: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      github: ""
     }
     // <-- COPY ONE OF THE OBJECTS ABOVE TO ADD A NEW PROJECT -->
   ],
@@ -714,7 +452,7 @@ const siteData = {
   contact: {
     titleHTML: "Let's Build Your <span>Digital Presence</span>",
     subtitle: "Looking to bring your business online — or give your current site a premium upgrade? I'd love to hear about it.",
-    whatsappNumber: "911234567890", // country code + number, no + or spaces
+    whatsappNumber: "911234567890",
     whatsappMessage: "Hi! I found your portfolio and I'm interested in a website for my business.",
     email: "hello@example.com"
   },
@@ -723,11 +461,6 @@ const siteData = {
     text: "Designed & Built by Your Name · 2026"
   }
 };
-
-/* ==================================================================
-   RENDER LOGIC — reads siteData above and builds the page.
-   You shouldn't need to touch anything below this line.
-   ================================================================== */
 
 // --- Hero ---
 document.getElementById("hero-eyebrow").textContent = siteData.hero.eyebrow;
@@ -758,23 +491,35 @@ document.getElementById("skills-row").innerHTML = siteData.skills
     </div>
   `).join("");
 
-// --- Projects ---
+// --- Featured Projects ---
 document.getElementById("projects-grid").innerHTML = siteData.projects
   .map(project => `
-    <div class="project-card">
-      <div class="project-thumb">
-        ${project.image
-          ? `<img src="${project.image}" alt="${project.name} screenshot">`
-          : `<i class="fa-solid fa-image" style="font-size:1.6rem;"></i>`
-        }
-      </div>
-      <div class="project-body">
-        <span class="project-tag">${project.tag}</span>
-        <h3 class="project-name">${project.name}</h3>
-        <p class="project-desc">${project.desc}</p>
-        <a href="${project.link}" class="project-link" target="_blank" rel="noopener">
-          View Project <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    <div class="featured-project">
+      <div class="featured-project-image">
+        <a href="${project.link}" target="_blank" rel="noopener">
+          ${project.image
+            ? `<img src="${project.image}" alt="${project.name} screenshot">`
+            : `<div class="no-image-icon"><i class="fa-solid fa-image" style="font-size:1.8rem;"></i></div>`
+          }
         </a>
+      </div>
+      <div class="featured-project-content">
+        <p class="featured-project-label">${project.tag || "Featured Project"}</p>
+        <h3 class="featured-project-title">
+          <a href="${project.link}" target="_blank" rel="noopener">${project.name}</a>
+        </h3>
+        <div class="featured-project-desc">
+          <p>${project.desc}</p>
+        </div>
+        ${project.tech && project.tech.length ? `
+          <ul class="featured-project-tech">
+            ${project.tech.map(t => `<li>${t}</li>`).join("")}
+          </ul>
+        ` : ""}
+        <div class="featured-project-links">
+          ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" aria-label="GitHub repo"><i class="fa-brands fa-github"></i></a>` : ""}
+          <a href="${project.link}" target="_blank" rel="noopener" aria-label="Live site"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
       </div>
     </div>
   `).join("");
